@@ -1,1 +1,5 @@
 .vscode/settings.json
+tests/__pycache__/test_spooner.cpython-36-PYTEST.pyc
+.pytest_cache/v/cache/nodeids
+.pytest_cache/v/cache/stepwise
+__pycache__/spooner.cpython-36.pyc
