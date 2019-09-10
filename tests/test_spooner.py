@@ -1,23 +1,21 @@
 import spooner
 
 import pytest
-from pytest import param
+#from pytest import param
 
 @pytest.mark.parametrize(
-    "text","expected",
+    "text, expected",
     [
-        param("three cheers for our dear old queen", "['dear', 'queen'] -> [['queer'], ['dean', 'deane', 'deen']]"),
-        param("I've got hope in my soul",),
-        param("you missed my history lecture",),
-        param("a blushing crow",),
-        param("There’s nothing like a good spoonerism to tickle your funny bone",),
-        param("Is the dean busy",),
-        param("jelly beans",),
-        param("trail snacks",),
-        param("call box",),
+        ("trail snacks", ["snail tracks", "snail trax"]),
+        ("three cheers for our dear old queen", ""),
+        ("I've got hope in my soul",""),
+        ("you missed my history lecture",""),
+        ("a blushing crow",""),
+        ("There’s nothing like a good spoonerism to tickle your funny bone",""),
+        ("Is the dean busy",""),
+        ("jelly beans",""),
     ]
 )
 
-
 def test_samples(text,expected):
-    assert expected in spooner.spoonsentence(text)
+    assert spooner.spoonsentence(text) in expected
