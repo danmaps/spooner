@@ -29,6 +29,7 @@ def spoon(text):
     switches the first sound in two words and checks for valid results
     these two word spoonerisms are a good start because I can parse 
     a string and iterate through all pairs of two words!
+    credits:
     https://stackoverflow.com/questions/405161/detecting-syllables-in-a-word/4103234#4103234
     https://stackoverflow.com/questions/33666557/get-phonemes-from-any-word-in-python-nltk-or-other-modules
     :param text: 
@@ -45,14 +46,8 @@ def spoon(text):
             # print(phones)
             for phone in phones:  # ['T', 'R', 'EY1', 'L']
                 if any(char.isdigit() for char in phone):
-                    firstStress = phones.index(
-                        phone
-                    )  # 'EY1'
-                    dic[
-                        word
-                    ] = (
-                        firstStress
-                    )  # {'trail': 2, 'snacks': 2}
+                    firstStress = phones.index(phone)  # 'EY1'
+                    dic[word] = firstStress  # {'trail': 2, 'snacks': 2}
                     break  # stop after first stressed vowel
         except KeyError:
             # print(word, "not in CMU Pronunciation Dictionary")
