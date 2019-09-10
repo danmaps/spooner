@@ -125,44 +125,44 @@ def spoonsentence(sentence):
                 ]
             )
             print(subbedSentence1)
+    return subbedSentence1
 
-
-spoonsentence("three cheers for our dear old queen")
-spoonsentence("I've got hope in my soul")
-spoonsentence("you missed my history lecture")
-spoonsentence("a blushing crow")
-spoonsentence(
-    "There’s nothing like a good spoonerism to tickle your funny bone"
-)
-spoonsentence("Is the dean busy")
-spoonsentence("jelly beans")
-spoonsentence("trail snacks")
-spoonsentence("call box")
+# spoonsentence("three cheers for our dear old queen")
+# spoonsentence("I've got hope in my soul")
+# spoonsentence("you missed my history lecture")
+# spoonsentence("a blushing crow")
+# spoonsentence(
+#     "There’s nothing like a good spoonerism to tickle your funny bone"
+# )
+# spoonsentence("Is the dean busy")
+# spoonsentence("jelly beans")
+# spoonsentence("trail snacks")
+# spoonsentence("call box")
 
 # scan longer text file for spoonerisms
 
 
-def readtext(source):
-    text = ""
-    with open(source) as corpus:
-        for line in corpus:
-            if (
-                len(line.split()) > 2
-            ):  # skip very short lines
-                text += line
-            elif (
-                "." in line
-            ):  # include very short lines that include "."
-                text += line
-            else:
-                pass
-                # print(line.replace('\n', ''))  # print skipped lines i.e. "Chapter 1" & "Introduction"
-        sentences = text.replace("\n", "").split(".")
-    return sentences
+# def readtext(source):
+#     text = ""
+#     with open(source) as corpus:
+#         for line in corpus:
+#             if (
+#                 len(line.split()) > 2
+#             ):  # skip very short lines
+#                 text += line
+#             elif (
+#                 "." in line
+#             ):  # include very short lines that include "."
+#                 text += line
+#             else:
+#                 pass
+#                 # print(line.replace('\n', ''))  # print skipped lines i.e. "Chapter 1" & "Introduction"
+#         sentences = text.replace("\n", "").split(".")
+#     return sentences
 
 
-# here's a chapter of a book
-hhgttg = r"C:\Users\dann7982\Google Drive\The Hitch Hiker's Guide to the Galaxy\Chapter 1.txt"
-for sentence in readtext(hhgttg):
-    spoonsentence(sentence)
-    break  # stop after first sentence
+# # here's a chapter of a book
+# hhgttg = r"C:\Users\dann7982\Google Drive\The Hitch Hiker's Guide to the Galaxy\Chapter 1.txt"
+# for sentence in readtext(hhgttg):
+#     spoonsentence(sentence)
+#     break  # stop after first sentence
