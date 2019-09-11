@@ -1,3 +1,4 @@
+[![PyPI version](https://badge.fury.io/py/spooner.svg)](https://pypi.org/project/spooner/)
 # spooner
 
 Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sounds in words.
