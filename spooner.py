@@ -1,3 +1,7 @@
+"""spooner"""
+
+__version__ = '0.1'
+
 import nltk
 import pronouncing
 import itertools
