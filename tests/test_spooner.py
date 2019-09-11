@@ -1,17 +1,31 @@
 import spooner
 
 import pytest
-#from pytest import param
+
+
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        ("trail snacks", [['snail'], ['tracks', 'trax']]),
+        ("blushing crow", [['crushing'], ['bleau', 'blow', 'blowe']]),
+        ("jelly beans", [['beli', 'belli', 'belly'], ['genes', 'jeanes', 'jeans']]),
+    ]
+)
+
+
+def test_spoon(text,expected):
+    assert spooner.spoon(text) == expected
+
 
 @pytest.mark.parametrize(
     "text, expected",
     [
         ("trail snacks", ["snail tracks", "snail trax"]),
+        ("a blushing crow", ["a crushing blow", "a crushing bleau", "a crushing blowe"]),
         #("three cheers for our dear old queen", ""),
         # ("I've got hope in my soul",""),
         # ("you missed my history lecture",""),
-        ("a blushing crow", ["a crushing blow", "a crushing bleau", "a crushing blowe"]),
-        # ("There’s nothing like a good spoonerism to tickle your funny bone",""),
+        # ("funny bone",""),
         # ("Is the dean busy",""),
         # ("jelly beans",""),
     ]
