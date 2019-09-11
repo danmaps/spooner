@@ -92,24 +92,18 @@ def spoon(text):
 
 
 def spoonsentence(sentence):
-    for pair in list(
-        itertools.combinations(sentence.split(), 2)
-    ):
+    for pair in list(itertools.combinations(sentence.split(), 2)):
         results = spoon(" ".join(map(str, pair)))
         if results:
             subbedSentence0 = " ".join(
                 [
-                    random.choice(results[0])
-                    if x == pair[0]
-                    else x
+                    random.choice(results[0]) if x == pair[0] else x
                     for x in sentence.split()
                 ]
             )
             subbedSentence1 = " ".join(
                 [
-                    random.choice(results[1])
-                    if x == pair[1]
-                    else x
+                    random.choice(results[1]) if x == pair[1] else x
                     for x in subbedSentence0.split()
                 ]
             )
