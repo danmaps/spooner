@@ -1,0 +1,13 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+[tool.flit.metadata]
+module = "spooner"
+author = "Danny McVey"
+author-email = ""
+home-page = "https://github.com/danmaps/spooner"
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[tool.flit.metadata.requires-extra]
+test = ["pytest", "pytest-cov", "tox"]
