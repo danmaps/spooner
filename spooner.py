@@ -11,6 +11,15 @@ except LookupError: # pragma: no cover
 arpabet = nltk.corpus.cmudict.dict()
 
 
+def phonemes(word):
+    """
+    breaks a word into syllables
+    """
+    return arpabet[word][0]
+
+print(phonemes("trail"))
+
+
 def spoon(text):
     """
     switches the first sound in two words and checks for valid results
@@ -21,6 +30,7 @@ def spoon(text):
     :param text: 
     :return a list of matches for each word: 
     """
+
     dic = {}
     rhymesdict = {}
 
@@ -28,8 +38,7 @@ def spoon(text):
     for word in text.split():  # ['trail', 'snacks']
         rhymesdict[word] = pronouncing.rhymes(word)
         #try:
-        phones = arpabet[word][0]
-        # print(phones)
+        phones = phonemes([word][0])
         for phone in phones:  # ['T', 'R', 'EY1', 'L']
             if any(char.isdigit() for char in phone):
                 firstStress = phones.index(phone)  # 'EY1'
@@ -56,7 +65,7 @@ def spoon(text):
                 r"'s" not in rhyme
             ):  # exclude possessive nouns
                 try:
-                    rhymePhones = arpabet[rhyme][0]
+                    rhymePhones = phonemes([rhyme][0])
                 except KeyError:
                     rhymePhones = []
                     # print("word is missing from the pronouncing dictionary")
@@ -79,21 +88,11 @@ def spoon(text):
 
 
 def spoonsentence(sentence):
-    """
-    
-    :param sentence: 
-    :return: 
-    """
-
-    print("\n" + "input: " + sentence)
     for pair in list(
         itertools.combinations(sentence.split(), 2)
     ):
         results = spoon(" ".join(map(str, pair)))
-        # print("checked:", combo, "found:", results)
         if results:
-            print(list(pair), "->", results)
-            # print(result)
             subbedSentence0 = " ".join(
                 [
                     random.choice(results[0])
@@ -110,7 +109,6 @@ def spoonsentence(sentence):
                     for x in subbedSentence0.split()
                 ]
             )
-            print(subbedSentence1)
     return subbedSentence1
 
 # scan longer text file for spoonerisms
