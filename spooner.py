@@ -9,7 +9,7 @@ import random
 
 try:
     nltk.data.find("corpora\\cmudict")
-except LookupError: # pragma: no cover
+except LookupError:  # pragma: no cover
     nltk.download("cmudict")
 
 arpabet = nltk.corpus.cmudict.dict()
@@ -21,8 +21,6 @@ def phonemes(word):
     """
     return arpabet[word][0]
 
-print(phonemes("trail"))
-
 
 def spoon(text):
     """
@@ -31,8 +29,8 @@ def spoon(text):
     credits:
     https://stackoverflow.com/questions/405161/detecting-syllables-in-a-word/4103234#4103234
     https://stackoverflow.com/questions/33666557/get-phonemes-from-any-word-in-python-nltk-or-other-modules
-    :param text: 
-    :return a list of matches for each word: 
+    :param text:
+    :return a list of matches for each word:
     """
 
     dic = {}
@@ -41,7 +39,7 @@ def spoon(text):
     spoons0, spoons1 = [], []
     for word in text.split():  # ['trail', 'snacks']
         rhymesdict[word] = pronouncing.rhymes(word)
-        #try:
+        # try:
         phones = phonemes([word][0])
         for phone in phones:  # ['T', 'R', 'EY1', 'L']
             if any(char.isdigit() for char in phone):
@@ -52,18 +50,18 @@ def spoon(text):
         #     # print(word, "not in CMU Pronunciation Dictionary")
         #     # break
         #     pass
-    for word in text.split(): 
+    for word in text.split():
         try:
             prefix0 = arpabet[text.split()[0]][0][:dic[text.split()[0]]]  # ['T', 'R']
             suffix0 = arpabet[text.split()[0]][0][dic[text.split()[0]]:]  # ['EY1', 'L']
             prefix1 = arpabet[text.split()[1]][0][:dic[text.split()[1]]]  # ['S', 'N']
             suffix1 = arpabet[text.split()[1]][0][dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
-        except KeyError: # pragma: no cover
+        except KeyError:  # pragma: no cover
             prefix0 = []
             suffix0 = []
             prefix1 = []
             suffix1 = []
-            
+
         for rhyme in rhymesdict[word]:
             if (
                 r"'s" not in rhyme
@@ -125,7 +123,8 @@ def spoonsentence(sentence):
 #                 text += line
 #             else:
 #                 pass
-#                 # print(line.replace('\n', ''))  # print skipped lines i.e. "Chapter 1" & "Introduction"
+#                 # print skipped lines i.e. "Chapter 1" & "Introduction"
+#                 # print(line.replace('\n', ''))
 #         sentences = text.replace("\n", "").split(".")
 #     return sentences
 
