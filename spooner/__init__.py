@@ -1,6 +1,6 @@
 """spooner"""
 
-__version__ = "0.3"
+__version__ = "0.4"
 
 
 import spooner.spooner as sp  # noqa
