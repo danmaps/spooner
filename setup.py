@@ -21,5 +21,5 @@ setup(
     name='spooner',
     author="Danny McVey",
     version=version,
-    install_requires=['nltk', 'pronouncing'],
+    install_requires=requirements,
 )
