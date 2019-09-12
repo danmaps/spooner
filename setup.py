@@ -18,5 +18,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     author="Danny McVey",
     version=version,
+    #long_description=readme(),
+    description='Spoonerisms on demand',
     install_requires=requirements,
 )
