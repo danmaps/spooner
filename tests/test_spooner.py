@@ -1,4 +1,4 @@
-import spooner.spooner as sp
+from . import sp
 
 import pytest
 
@@ -31,6 +31,7 @@ def test_spoon(text, expected):
     [
         ("trail snacks", ["snail tracks", "snail trax"]),
         ("a blushing crow", ["a crushing blow", "a crushing bleau", "a crushing blowe"]),
+        ("this program is the best", "")
     ]
 )
 def test_samples(text, expected):

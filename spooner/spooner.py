@@ -101,6 +101,8 @@ def spoonsentence(sentence):
                     for x in subbedSentence0.split()
                 ]
             )
+        else:
+            subbedSentence1 = ""
     return subbedSentence1
 
 # scan longer text file for spoonerisms
