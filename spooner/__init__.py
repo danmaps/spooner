@@ -1,7 +1,7 @@
 """spooner"""
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 
-from .spooner import *  # noqa
+import spooner.spooner as sp  # noqa
 #from .cli import main  # noqa
