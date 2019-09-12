@@ -7,7 +7,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-version = '0.5.2'
+version = '0.5.3'
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
