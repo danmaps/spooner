@@ -6,6 +6,7 @@ build-backend = "flit.buildapi"
 module = "spooner"
 author = "Danny McVey"
 author-email = ""
+description-file = "README.md"
 home-page = "https://github.com/danmaps/spooner"
 classifiers = ["License :: OSI Approved :: MIT License"]
 
