@@ -3,5 +3,7 @@
 __version__ = "0.5"
 
 
-import spooner  # noqa
+from .spooner import phonemes
+from .spooner import spoon  # noqa
+from .spooner import spoonsentence
 #from .cli import main  # noqa
