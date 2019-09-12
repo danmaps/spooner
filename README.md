@@ -14,26 +14,32 @@ Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sound
 Examples:
 
 **input: three cheers for our dear old queen**
+```
 three fears chore our dear old queen
 three queers for our dear old cheane
 three cheers dohr our fier old queen
 three cheers orr our dear fold queen
 three cheers for our queer old deane
-
+```
 **input: I've got hope in my soul**
+```
 I've motte hope in ngai soul
 I've got mope in heye soul
 I've got soap in my hohl
 I've got hope in psi mohl
-
+```
 **input: you missed my history lecture**
+```
 you hissed my mystery lecture
 you missed high mystery lecture
-
+```
 **input: a blushing crow**
+```
 a crushing blow
+```
 
 **input: There’s nothing like a good spoonerism to tickle your funny bone**
+```
 There’s nothing teich a good spoonerism leu tickle your funny bone
 There’s nothing fyke a good spoonerism to tickle your lunny bone
 There’s nothing bike a good spoonerism to tickle your funny lone
@@ -43,17 +49,21 @@ There’s nothing like a good spoonerism boo tickle your funny tone
 There’s nothing like a good spoonerism to fickle your tunny bone
 There’s nothing like a good spoonerism to bickle your funny tone
 There’s nothing like a good spoonerism to tickle your bunnie fone
-
+```
 **input: Is the dean busy**
+```
 Is the bean dizzy
-
+```
 **input: jelly beans**
+```
 belly jeans
-
+```
 **input: trail snacks**
+```
 snail tracks
-
+```
 **input: Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun**
+```
 Far lout in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy eis a small unregarded yellow sun
 Far out in the uncharted backwaters love the unfashionable end love the western spiral arm love the Galaxy ayes a small unregarded yellow sun
 Far out in the uncharted backwaters of the unfashionable lend of the western spiral arm of the Galaxy eyes a small unregarded yellow sun
@@ -62,3 +72,4 @@ Far out in the uncharted backwaters love the unfashionable end love the western 
 Far out in the uncharted backwaters love the unfashionable end love the western spiral arm love the Galaxy eis a small unregarded yellow sun
 Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy size a small unregarded yellow lun
 Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded celo youn
+```
