@@ -9,9 +9,7 @@ import pytest
         ("trail", ['T', 'R', 'EY1', 'L'])
     ]
 )
-
-
-def test_phonemes(text,expected):
+def test_phonemes(text, expected):
     assert sp.phonemes(text) == expected
 
 
@@ -24,9 +22,7 @@ def test_phonemes(text,expected):
         ("hello world", None)
     ]
 )
-
-
-def test_spoon(text,expected):
+def test_spoon(text, expected):
     assert sp.spoon(text) == expected
 
 
@@ -37,6 +33,5 @@ def test_spoon(text,expected):
         ("a blushing crow", ["a crushing blow", "a crushing bleau", "a crushing blowe"]),
     ]
 )
-
-def test_samples(text,expected):
+def test_samples(text, expected):
     assert sp.spoonsentence(text) in expected
