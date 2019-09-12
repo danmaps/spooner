@@ -13,7 +13,7 @@ with open('README.md') as readme_file:
     readme = readme_file.read()
 
 requirements = [
-    'nltk==3.4.5'
+    'nltk==3.4.5',
     'pronouncing==0.2.0'
 ]
 
