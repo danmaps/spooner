@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit", "nltk", "pronouncing"]
+requires = ["flit"]
 build-backend = "flit.buildapi"
 
 [tool.flit.metadata]
@@ -9,6 +9,7 @@ author-email = ""
 description-file = "README.md"
 home-page = "https://github.com/danmaps/spooner"
 classifiers = ["License :: OSI Approved :: MIT License"]
+requires=["nltk", "pronouncing"]
 
 [tool.flit.metadata.requires-extra]
-test = ["pytest", "pytest-cov", "tox", "nltk", "pronouncing"]
+test = ["pytest", "pytest-cov", "tox"]
