@@ -50,11 +50,11 @@ def spoon(text):
         try:
             prefix0 = arpabet[text.split()[0]][0][: dic[text.split()[0]]]  # ['T', 'R']
             suffix0 = arpabet[text.split()[0]][0][
-                dic[text.split()[0]] :
+                dic[text.split()[0]]:
             ]  # ['EY1', 'L']
             prefix1 = arpabet[text.split()[1]][0][: dic[text.split()[1]]]  # ['S', 'N']
             suffix1 = arpabet[text.split()[1]][0][
-                dic[text.split()[1]] :
+                dic[text.split()[1]]:
             ]  # ['AE1', 'K', 'S']
         except KeyError:  # pragma: no cover
             prefix0 = []
