@@ -11,4 +11,4 @@ home-page = "https://github.com/danmaps/spooner"
 classifiers = ["License :: OSI Approved :: MIT License"]
 
 [tool.flit.metadata.requires-extra]
-test = ["pytest", "pytest-cov", "tox"]
+test = ["pytest", "pytest-cov", "tox", "nltk", "pronouncing"]
