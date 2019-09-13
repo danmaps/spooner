@@ -6,10 +6,38 @@
 
 # spooner
 
-Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sounds in words. Created just for fun.
+Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sounds in words. Created just for fun and learning.
 
 | STANDARD DISCLAIMER: Spoonerisms made by this program are not guaranteed to be funny, but they *are* technically spoonerisms. |
 | --- | 
+
+
+## Installation
+
+~~~
+pip install spooner
+~~~
+
+
+## Usage
+
+Use it like this:
+~~~
+>>> import spooner as sp
+>>> sp.phonemes("trail")
+['T', 'R', 'EY1', 'L']
+~~~
+~~~
+>>> sp.spoon("trail snacks")
+[['snail'], ['tracks', 'trax']]
+~~~
+~~~
+>>> sp.spoonsentence("let's eat trail snacks")
+"let's eat snail tracks"
+~~~
+
+
+
 
 Examples:
 
