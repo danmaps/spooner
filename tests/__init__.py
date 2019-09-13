@@ -1,1 +1,1 @@
-import spooner.spooner as sp
+import spooner.spooner as sp  # noqa
