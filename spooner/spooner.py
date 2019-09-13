@@ -48,10 +48,14 @@ def spoon(text):
         #     pass
     for word in text.split():
         try:
-            prefix0 = arpabet[text.split()[0]][0][:dic[text.split()[0]]]  # ['T', 'R']
-            suffix0 = arpabet[text.split()[0]][0][dic[text.split()[0]]:]  # ['EY1', 'L']
-            prefix1 = arpabet[text.split()[1]][0][:dic[text.split()[1]]]  # ['S', 'N']
-            suffix1 = arpabet[text.split()[1]][0][dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
+            prefix0 = arpabet[text.split()[0]][0][: dic[text.split()[0]]]  # ['T', 'R']
+            suffix0 = arpabet[text.split()[0]][0][
+                dic[text.split()[0]] :
+            ]  # ['EY1', 'L']
+            prefix1 = arpabet[text.split()[1]][0][: dic[text.split()[1]]]  # ['S', 'N']
+            suffix1 = arpabet[text.split()[1]][0][
+                dic[text.split()[1]] :
+            ]  # ['AE1', 'K', 'S']
         except KeyError:  # pragma: no cover
             prefix0 = []
             suffix0 = []
@@ -59,9 +63,7 @@ def spoon(text):
             suffix1 = []
 
         for rhyme in rhymesdict[word]:
-            if (
-                r"'s" not in rhyme
-            ):  # exclude possessive nouns
+            if r"'s" not in rhyme:  # exclude possessive nouns
                 try:
                     rhymePhones = phonemes([rhyme][0])
                 except KeyError:
@@ -74,9 +76,7 @@ def spoon(text):
                     ):  # ['T', 'R'] + ['AE1', 'K', 'S']
                         spoons0.append(rhyme)
                         # break  # stop after first match
-                    if (
-                        rhymePhones == prefix1 + suffix0
-                    ):  # ['S', 'N'] + ['EY1', 'L']
+                    if rhymePhones == prefix1 + suffix0:  # ['S', 'N'] + ['EY1', 'L']
                         spoons1.append(rhyme)
                         # break  # stop after first match
     if spoons0 and spoons1:
@@ -86,8 +86,10 @@ def spoon(text):
 
 
 def spoonsentence(sentence):
+    subbedSentence1 = ""
     for pair in list(itertools.combinations(sentence.split(), 2)):
         results = spoon(" ".join(map(str, pair)))
+
         if results:
             subbedSentence0 = " ".join(
                 [
@@ -101,9 +103,8 @@ def spoonsentence(sentence):
                     for x in subbedSentence0.split()
                 ]
             )
-        else:
-            subbedSentence1 = ""
     return subbedSentence1
+
 
 # scan longer text file for spoonerisms
 
