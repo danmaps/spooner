@@ -1,7 +1,6 @@
 import nltk
 import pronouncing
 import itertools
-import random
 
 try:
     nltk.data.find("corpora\\cmudict")
@@ -80,30 +79,38 @@ def spoon(text):
                         spoons1.append(rhyme)
                         # break  # stop after first match
     if spoons0 and spoons1:
-        return [spoons1, spoons0]
+        return {text.split()[0]: spoons1, text.split()[1]: spoons0}
     else:
         return
 
 
-def spoonsentence(sentence):
-    subbedSentence1 = ""
+def sentence(sentence):
+
+    """
+    for each pair of words, get the spoonerism using spoon
+    {'snacks': ['tracks', 'trax'], 'trail': ['snail']}
+
+    for each combination in the result, regenerate the sentence
+
+    """
+    sentences = []
     for pair in list(itertools.combinations(sentence.split(), 2)):
+
         results = spoon(" ".join(map(str, pair)))
+        # {'snacks': ['tracks', 'trax'], 'trail': ['snail']}
 
         if results:
-            subbedSentence0 = " ".join(
-                [
-                    random.choice(results[0]) if x == pair[0] else x
-                    for x in sentence.split()
-                ]
-            )
-            subbedSentence1 = " ".join(
-                [
-                    random.choice(results[1]) if x == pair[1] else x
-                    for x in subbedSentence0.split()
-                ]
-            )
-    return subbedSentence1
+            combos = [x for x in itertools.product(results[pair[0]], results[pair[1]])]
+            pair_sentences = [
+                sentence.replace(pair[0], combos[x][0], 1).replace(
+                    pair[1], combos[x][1], 1
+                )
+                for x in range(len(combos))
+            ]
+        else:
+            continue
+        sentences.extend(sorted(pair_sentences))
+    return sentences
 
 
 # scan longer text file for spoonerisms

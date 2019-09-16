@@ -1,5 +1,4 @@
 from . import sp
-
 import pytest
 
 
@@ -11,12 +10,28 @@ def test_phonemes(text, expected):
 @pytest.mark.parametrize(
     "text, expected",
     [
-        ("trail snacks", [["snail"], ["tracks", "trax"]]),
-        ("blushing crow", [["crushing"], ["bleau", "blow", "blowe"]]),
-        ("jelly beans", [["beli", "belli", "belly"], ["genes", "jeanes", "jeans"]]),
+        ("trail snacks", {"trail": ["snail"], "snacks": ["tracks", "trax"]}),
+        (
+            "crushing blow",
+            {
+                "blow": ["cro", "crow", "crowe", "krogh", "kroh", "krowe"],
+                "crushing": ["blushing"],
+            },
+        ),
+        (
+            "jelly beans",
+            {
+                "jelly": ["beli", "belli", "belly"],
+                "beans": ["genes", "jeanes", "jeans"],
+            },
+        ),
         ("hello world", None),
-        ("run for", [["fun"], ["roar", "roehr", "rohr"]]),
-        ("loving shepherd", [["shoving"], ["leopard", "lepard", "leppard"]]),
+        ("run for", {"run": ["fun"], "for": ["roar", "roehr", "rohr"]}),
+        (
+            "loving shepherd",
+            {"loving": ["shoving"], "shepherd": ["leopard", "lepard", "leppard"]},
+        ),
+        ("dental reception", {"dental": ["rental"], "reception": ["deception"]}),
     ],
 )
 def test_spoon(text, expected):
@@ -28,24 +43,31 @@ def test_spoon(text, expected):
     [
         ("trail snacks", ["snail tracks", "snail trax"]),
         (
-            "a blushing crow",
-            ["a crushing blow", "a crushing bleau", "a crushing blowe"],
+            "a crushing blow",
+            [
+                "a blushing cro",
+                "a blushing crow",
+                "a blushing crowe",
+                "a blushing krogh",
+                "a blushing kroh",
+                "a blushing krowe",
+            ],
         ),
-        ("this program is the best", ""),
+        ("this program is the best", []),
         (
             "run for the hills",
             [
                 "fun roar the hills",
                 "fun roehr the hills",
                 "fun rohr the hills",
-                "run whore the fills",
-                "run hoare the fills",
                 "run hoar the fills",
+                "run hoare the fills",
                 "run hoerr the fills",
                 "run horr the fills",
+                "run whore the fills",
             ],
         ),
     ],
 )
-def test_samples(text, expected):
-    assert sp.spoonsentence(text) in expected
+def test_sentence(text, expected):
+    assert sp.sentence(text) == expected
