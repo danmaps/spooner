@@ -1,7 +1,7 @@
 [![Documentation Status](https://readthedocs.org/projects/spooner/badge/?version=latest)](https://spooner.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/spooner.svg)](https://pypi.org/project/spooner/)
 [![codecov](https://codecov.io/gh/danmaps/spooner/branch/master/graph/badge.svg)](https://codecov.io/gh/danmaps/spooner)
-[![Build Status](https://dev.azure.com/danmaps/spooner/_apis/build/status/danmaps.spooner?branchName=master)](https://dev.azure.com/dannybmcvey0582/spooner/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/danmaps/spooner/_apis/build/status/danmaps.spooner?branchName=master)](https://dev.azure.com/danmaps/spooner/_build/latest?definitionId=1&branchName=master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black) 
 
 # spooner
