@@ -1,8 +1,8 @@
 """spooner"""
 
-__version__ = "0.5.10"
+__version__ = "0.5.11"
 
 
 from .spooner import phonemes  # noqa
 from .spooner import spoon  # noqa
-from .spooner import spoonsentence  # noqa
+from .spooner import sentence  # noqa
