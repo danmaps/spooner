@@ -32,7 +32,7 @@ Use it like this:
 {'trail': ['snail'], 'snacks': ['tracks', 'trax']}
 ~~~
 ~~~
->>> sp.spoonsentence("let's eat trail snacks")
+>>> sp.sentence("let's eat trail snacks")
 ["let's treat ail snacks", "let's treat ale snacks", "let's eat snail tracks", "let's eat snail trax"]
 ~~~
 
