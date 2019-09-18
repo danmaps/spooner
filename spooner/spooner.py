@@ -108,7 +108,7 @@ def sentence(sentence):
                 for x in range(len(combos))
             ]
         else:
-            continue
+            continue  # pragma: no cover
         sentences.extend(sorted(pair_sentences))
     return sentences
 
