@@ -98,4 +98,6 @@ API
 Training
 Blog
 About
+
+# apprise notification config file
 notify.cfg
