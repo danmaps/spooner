@@ -1,5 +1,6 @@
 from . import sp
 import pytest
+# import notify
 
 
 @pytest.mark.parametrize("text, expected", [("trail", ["T", "R", "EY1", "L"])])
@@ -71,3 +72,4 @@ def test_spoon(text, expected):
 )
 def test_sentence(text, expected):
     assert sp.sentence(text) == expected
+    # notify.iphone(text, str(expected))
