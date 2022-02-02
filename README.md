@@ -12,7 +12,7 @@ Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sound
 | --- | 
 
 
-Inspired by [a great podcast episode](https://testandcode.com/80), I created this to learn about packaging, flit, tox, pytest, and coverage. It went surprisingly well, so now I have a thing that lives on the internet. Anyone can install and play with it! Neat!
+Inspired by [a great podcast episode](https://testandcode.com/80), I created this to learn about packaging, flit, tox, pytest, and coverage. I also threw in a few learning experiences related to  Azure pipelines and black. It went surprisingly well, so now I have a thing that lives on the internet. Anyone can install and play with it! Neat!
 
 
 ## Installation
