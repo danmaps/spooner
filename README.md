@@ -6,13 +6,13 @@
 
 # spooner
 
-Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sounds in words. Created just for fun and learning.
+Generates [spoonerisms](https://en.wikipedia.org/wiki/Spoonerism) based on sounds in words. 
 
 | STANDARD DISCLAIMER: Spoonerisms made by this program are not guaranteed to be funny, but they *are* technically spoonerisms. |
 | --- | 
 
 
-Inspired by [this create podcase episode](https://testandcode.com/80), I created this to learn about packaging, flit, tox, pytest, and coverage. It went surprisingly well, so now I have a thing that lives on the internet. Anyone can install and play with it! Neat!
+Inspired by [a great podcast episode](https://testandcode.com/80), I created this to learn about packaging, flit, tox, pytest, and coverage. It went surprisingly well, so now I have a thing that lives on the internet. Anyone can install and play with it! Neat!
 
 
 ## Installation
