@@ -39,3 +39,7 @@ Use it like this:
 ["let's treat ail snacks", "let's treat ale snacks", "let's eat snail tracks", "let's eat snail trax"]
 ~~~
 
+## How it works
+
+Relies on [NLTK](https://github.com/nltk/nltk), the Natural Language Toolkit, a suite of open source Python modules, data sets, and tutorials supporting research and development in Natural Language Processing. Yes, this is like using a sledgehammer to crack a nut.
+
