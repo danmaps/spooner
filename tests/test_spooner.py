@@ -3,10 +3,11 @@ import pytest
 # import notify
 
 
-@pytest.mark.parametrize("text, expected", [("trail", ["T", "R", "EY1", "L"])])
+@pytest.mark.parametrize("text, expected", [("trail", ["T R EY1 L"]),])
 def test_phonemes(text, expected):
     assert sp.phonemes(text) == expected
 
+#todo: add test for word not in dictionary  
 
 @pytest.mark.parametrize(
     "text, expected",
