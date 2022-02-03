@@ -1,20 +1,22 @@
-import nltk
+# import nltk
 import pronouncing
 import itertools
 
-try:
-    nltk.data.find("corpora\\cmudict")
-except LookupError:  # pragma: no cover
-    nltk.download("cmudict")
+# try:
+#     nltk.data.find("corpora\\cmudict")
+# except LookupError:  # pragma: no cover
+#     nltk.download("cmudict")
 
-arpabet = nltk.corpus.cmudict.dict()
+# arpabet = nltk.corpus.cmudict.dict()
 
 
 def phonemes(word):
     """
     breaks a word into syllables
     """
-    return arpabet[word][0]
+    # return arpabet[word][0] # ['T', 'R', 'EY1', 'L']
+    phones = pronouncing.phones_for_word(word) # ["T R EY1 L"]
+    return " ".join(phones[0])
 
 
 def spoon(text):
@@ -47,14 +49,10 @@ def spoon(text):
         #     pass
     for word in text.split():
         try:
-            prefix0 = arpabet[text.split()[0]][0][: dic[text.split()[0]]]  # ['T', 'R']
-            suffix0 = arpabet[text.split()[0]][0][
-                dic[text.split()[0]]:
-            ]  # ['EY1', 'L']
-            prefix1 = arpabet[text.split()[1]][0][: dic[text.split()[1]]]  # ['S', 'N']
-            suffix1 = arpabet[text.split()[1]][0][
-                dic[text.split()[1]]:
-            ]  # ['AE1', 'K', 'S']
+            prefix0 = arpabet[text.split()[0]][0][: dic[text.split()[0]] ]  # ['T', 'R']
+            suffix0 = arpabet[text.split()[0]][0][  dic[text.split()[0]]:]  # ['EY1', 'L']
+            prefix1 = arpabet[text.split()[1]][0][: dic[text.split()[1]] ]  # ['S', 'N']
+            suffix1 = arpabet[text.split()[1]][0][  dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
         except KeyError:  # pragma: no cover
             prefix0 = []
             suffix0 = []
