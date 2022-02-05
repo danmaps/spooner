@@ -16,7 +16,7 @@ def phonemes(word):
     """
     # return arpabet[word][0] # ['T', 'R', 'EY1', 'L']
     phones = pronouncing.phones_for_word(word) # ["T R EY1 L"]
-    return " ".join(phones[0])
+    return phones[0].split(' ')
 
 
 def spoon(text):
@@ -36,29 +36,22 @@ def spoon(text):
     spoons0, spoons1 = [], []
     for word in text.split():  # ['trail', 'snacks']
         rhymesdict[word] = pronouncing.rhymes(word)
-        # try:
         phones = phonemes([word][0])
         for phone in phones:  # ['T', 'R', 'EY1', 'L']
             if any(char.isdigit() for char in phone):
-                firstStress = phones.index(phone)  # 'EY1'
-                dic[word] = firstStress  # {'trail': 2, 'snacks': 2}
+                dic[word] = phones.index(phone)  # word:index of first stressed vowel {'trail': 2, 'snacks': 2}
                 break  # stop after first stressed vowel
-        # except KeyError:
-        #     # print(word, "not in CMU Pronunciation Dictionary")
-        #     # break
-        #     pass
-    for word in text.split():
-        try:
-            prefix0 = arpabet[text.split()[0]][0][: dic[text.split()[0]] ]  # ['T', 'R']
-            suffix0 = arpabet[text.split()[0]][0][  dic[text.split()[0]]:]  # ['EY1', 'L']
-            prefix1 = arpabet[text.split()[1]][0][: dic[text.split()[1]] ]  # ['S', 'N']
-            suffix1 = arpabet[text.split()[1]][0][  dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
-        except KeyError:  # pragma: no cover
-            prefix0 = []
-            suffix0 = []
-            prefix1 = []
-            suffix1 = []
 
+        print(word,phones)
+
+    prefix0 = phonemes(text.split()[0])[:dic[text.split()[0]] ]  # ['T', 'R']
+    suffix0 = phonemes(text.split()[0])[ dic[text.split()[0]]:]  # ['EY1', 'L']
+    prefix1 = phonemes(text.split()[1])[:dic[text.split()[1]] ]  # ['S', 'N']
+    suffix1 = phonemes(text.split()[1])[ dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
+
+    print(prefix0,suffix0,prefix1,suffix1)
+    # print(rhymesdict[word])
+    for word in text.split():  # ['trail', 'snacks']
         for rhyme in rhymesdict[word]:
             if r"'s" not in rhyme:  # exclude possessive nouns
                 try:
