@@ -139,6 +139,7 @@ def spoon_details(text):
         "swapped_phonemes": swapped_phonemes,
         "spoonerisms": spoon_results or {},
         "sample_result": sample_result,
+        "prefixes": [prefix0, prefix1],
     }
 
 

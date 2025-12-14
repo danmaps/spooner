@@ -12,50 +12,27 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="home">
+    <canvas id="home-splash"></canvas>
     <main class="page">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">Spooner</p>
-          <h1>Trade sounds and watch the swap happen.</h1>
-          <p class="lede">
-            Enter two words to see their phonemes, watch the sound swap animation,
-            and get a spoonerism suggestion.
-          </p>
-        </div>
-        <form id="spoon-form" class="card">
-          <label for="phrase">Two words</label>
-          <div class="input-row">
-            <input
-              type="text"
-              id="phrase"
-              name="phrase"
-              placeholder="trail snacks"
-              autocomplete="off"
-              required
-            />
-            <button type="submit">Spoon it</button>
-          </div>
-          <p class="help">Use everyday words for the best results.</p>
-        </form>
-      </header>
+      <p class="brand">Spooner</p>
+      <form id="spoon-form" class="input-panel">
+        <input
+          type="text"
+          id="phrase"
+          name="phrase"
+          placeholder="trail snacks"
+          value="trail snacks"
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Spoon it</button>
+      </form>
+      <p class="status" id="error" role="status"></p>
 
-      <section class="panels">
-        <div class="panel" id="timeline">
-          <div class="panel-header">
-            <h2>Animation</h2>
-            <p class="muted">Words → phonemes → swapped sounds → results</p>
-          </div>
+      <section class="results">
+        <div class="panel">
           <div class="steps" id="steps"></div>
-        </div>
-
-        <div class="panel" id="results">
-          <div class="panel-header">
-            <h2>Details</h2>
-            <p class="muted">Raw phonemes and sample spoonerism</p>
-          </div>
-          <div class="grid" id="details"></div>
-          <p class="muted" id="error" role="status"></p>
         </div>
       </section>
     </main>

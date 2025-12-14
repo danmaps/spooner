@@ -4,7 +4,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-from spooner.spooner import spoon_details
+from spooner import spoon_details
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 app = Flask(
