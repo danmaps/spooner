@@ -5,6 +5,7 @@
 #    pip-compile requirements.in
 #
 cmudict==0.4.3            # via pronouncing
+flask
 nltk
 pronouncing==0.2.0
 setuptools

@@ -1,0 +1,40 @@
+"""Minimal Flask app for exploring spoonerisms in the browser."""
+
+from pathlib import Path
+
+from flask import Flask, jsonify, render_template, request
+
+from spooner.spooner import spoon_details
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+app = Flask(
+    __name__,
+    template_folder=str(BASE_DIR / "templates"),
+    static_folder=str(BASE_DIR / "static"),
+)
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/api/spoon", methods=["POST"])
+def api_spoon():
+    data = request.get_json(silent=True) or {}
+    phrase = (data.get("phrase") or "").strip()
+    if not phrase:
+        return jsonify({"error": "Please provide two words to swap."}), 400
+    try:
+        details = spoon_details(phrase)
+    except ValueError as exc:  # from spooner utilities
+        return jsonify({"error": str(exc)}), 400
+
+    if not details.get("swapped_phonemes"):
+        return jsonify({"error": "These words cannot form a spoonerism."}), 400
+
+    return jsonify(details)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

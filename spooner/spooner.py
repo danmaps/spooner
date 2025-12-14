@@ -12,11 +12,27 @@ import itertools
 
 def phonemes(word):
     """
-    breaks a word into syllables
+    Break a word into phonemes.
+
+    Raises a ``ValueError`` when the word is not present in the
+    pronouncing dictionary so callers can surface a friendly error.
     """
     # return arpabet[word][0] # ['T', 'R', 'EY1', 'L']
     phones = pronouncing.phones_for_word(word) # ["T R EY1 L"]
+    if not phones:
+        raise ValueError(f"No pronunciation found for '{word}'.")
     return phones[0].split(' ')
+
+
+def _first_stress_index(phones):
+    """
+    Locate the index of the first stressed vowel in a list of phonemes.
+    """
+
+    for idx, phone in enumerate(phones):
+        if any(char.isdigit() for char in phone):
+            return idx
+    return 0
 
 
 def spoon(text):
@@ -78,6 +94,52 @@ def spoon(text):
         return {text.split()[0]: spoons1, text.split()[1]: spoons0}
     else:
         return
+
+
+def spoon_details(text):
+    """
+    Provide structured details about how a spoonerism is built for two words.
+
+    The response includes the original phonemes, the swapped phoneme order,
+    and any spoonerisms discovered by :func:`spoon`.
+    """
+
+    words = text.split()
+    if len(words) != 2:
+        raise ValueError("Provide exactly two words to swap sounds.")
+
+    first, second = words
+    first_phones = phonemes(first)
+    second_phones = phonemes(second)
+
+    first_stress = _first_stress_index(first_phones)
+    second_stress = _first_stress_index(second_phones)
+
+    prefix0 = first_phones[:first_stress]
+    suffix0 = first_phones[first_stress:]
+    prefix1 = second_phones[:second_stress]
+    suffix1 = second_phones[second_stress:]
+
+    swapped_phonemes = []
+    if prefix0 and prefix1:
+        swapped_phonemes = [prefix1 + suffix0, prefix0 + suffix1]
+
+    spoon_results = spoon(text)
+
+    sample_result = []
+    if spoon_results:
+        first_result = spoon_results.get(first, [])
+        second_result = spoon_results.get(second, [])
+        if first_result and second_result:
+            sample_result = [first_result[0], second_result[0]]
+
+    return {
+        "original_words": [first, second],
+        "phonemes": [first_phones, second_phones],
+        "swapped_phonemes": swapped_phonemes,
+        "spoonerisms": spoon_results or {},
+        "sample_result": sample_result,
+    }
 
 
 def sentence(sentence):
