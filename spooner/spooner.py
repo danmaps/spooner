@@ -49,6 +49,11 @@ def spoon(text):
     prefix1 = phonemes(text.split()[1])[:dic[text.split()[1]] ]  # ['S', 'N']
     suffix1 = phonemes(text.split()[1])[ dic[text.split()[1]]:]  # ['AE1', 'K', 'S']
 
+    # If either word begins with a vowel sound, there's no leading consonant
+    # cluster to swap, so no spoonerism is possible.
+    if not prefix0 or not prefix1:
+        return
+
     print(prefix0,suffix0,prefix1,suffix1)
     # print(rhymesdict[word])
     for word in text.split():  # ['trail', 'snacks']
@@ -92,12 +97,18 @@ def sentence(sentence):
 
         if results:
             combos = [x for x in itertools.product(results[pair[0]], results[pair[1]])]
-            pair_sentences = [
-                sentence.replace(pair[0], combos[x][0], 1).replace(
-                    pair[1], combos[x][1], 1
-                )
-                for x in range(len(combos))
-            ]
+            pair_sentences = []
+            for first, second in combos:
+                words = sentence.split()
+                for idx, word in enumerate(words):
+                    if word == pair[0]:
+                        words[idx] = first
+                        break
+                for idx, word in enumerate(words):
+                    if word == pair[1]:
+                        words[idx] = second
+                        break
+                pair_sentences.append(" ".join(words))
         else:
             continue  # pragma: no cover
         sentences.extend(sorted(pair_sentences))

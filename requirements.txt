@@ -5,6 +5,7 @@
 #    pip-compile requirements.in
 #
 cmudict==0.4.3            # via pronouncing
-# nltk>=3.6.4
+nltk
 pronouncing==0.2.0
+setuptools
 # six==1.12.0               # via nltk
