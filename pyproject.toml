@@ -9,7 +9,7 @@ author-email = ""
 description-file = "README.md"
 home-page = "https://github.com/danmaps/spooner"
 classifiers = ["License :: OSI Approved :: MIT License"]
-requires=["pronouncing"]
+requires=["pronouncing", "setuptools"]
 
 [tool.flit.metadata.requires-extra]
 test = ["pytest", "pytest-cov", "tox"]
