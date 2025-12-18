@@ -31,7 +31,7 @@ def api_spoon():
         return jsonify({"error": str(exc)}), 400
 
     if not details.get("swapped_phonemes"):
-        return jsonify({"error": "These words cannot form a spoonerism."}), 400
+        return jsonify({"error": "These words cannot form a spoonerism. Usually this means you entered a word that starts with a sound that cannot be swapped, or one or both words are not recognized."}), 400
 
     return jsonify(details)
 

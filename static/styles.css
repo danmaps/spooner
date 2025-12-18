@@ -126,6 +126,7 @@ button:hover {
 .results {
   width: min(720px, 100%);
   margin-top: 12px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .results.is-hidden {
@@ -178,36 +179,11 @@ button:hover {
   overflow: hidden;
 }
 
-.phoneme-rails {
-  position: relative;
-  min-height: 110px;
-  padding: 4px 0;
-}
-
 .phoneme-rail {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.phoneme-rail.rail-swapped {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(12px);
-}
-
-.phoneme-step:hover .rail-original {
-  opacity: 0;
-  transform: translateY(-12px);
-}
-
-.phoneme-step:hover .rail-swapped {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .phoneme-word {
@@ -224,6 +200,11 @@ button:hover {
   display: flex;
   align-items: center;
   min-height: unset;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.phoneme-step.can-swap:hover .chunk-wrap {
+  transform: translateX(var(--swap-shift, 0px));
 }
 
 .chunk {
@@ -264,13 +245,67 @@ button:hover {
   color: #9ec2ff;
 }
 
+.phoneme-link {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.phoneme-link::after {
+  content: '↗';
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.phoneme-link:hover,
+.phoneme-link:focus-visible {
+  color: var(--accent);
+}
+
+.phoneme-link:hover::after,
+.phoneme-link:focus-visible::after {
+  opacity: 1;
+}
+
 .phoneme-tail {
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 15px;
   letter-spacing: 0.2em;
   color: var(--text);
+  text-decoration: none;
+  gap: 4px;
+  min-height: 22px;
 }
+
+.tail-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 0.35s ease;
+  white-space: nowrap;
+}
+
+.tail-swapped {
+  opacity: 0;
+}
+
+.phoneme-step.can-swap:hover .tail-swapped {
+  opacity: 1;
+}
+
+.phoneme-step.can-swap:hover .tail-original {
+  opacity: 0;
+}
+
 
 .divider {
   align-self: center;

@@ -2,10 +2,32 @@ const form = document.getElementById("spoon-form");
 const steps = document.getElementById("steps");
 const resultsSection = document.querySelector(".results");
 const errorBox = document.getElementById("error");
+const phraseInput = document.getElementById("phrase");
 const splashCanvas = document.getElementById("home-splash");
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
+
+const samplePhrases = [
+  "trail snacks",
+  "crushing blow",
+  "jelly beans",
+  "hello world",
+  "run for",
+  "loving shepherd",
+  "dental reception",
+];
+
+const pickRandomPhrase = () =>
+  samplePhrases[Math.floor(Math.random() * samplePhrases.length)];
+
+const setInitialPhrase = () => {
+  if (phraseInput && !phraseInput.value) {
+    phraseInput.value = pickRandomPhrase();
+  }
+};
+
+setInitialPhrase();
 
 const createSimpleStep = (label, content, highlight = false) => {
   const wrapper = document.createElement("div");
@@ -37,7 +59,13 @@ const createChunk = (items, chunkClass) => {
   return chunk;
 };
 
-const buildWord = (phones, highlightCount, chunkClass) => {
+const buildWord = (
+  phones,
+  highlightCount,
+  chunkClass,
+  swappedPhones,
+  swappedHighlightCount
+) => {
   const container = document.createElement("div");
   container.className = "phoneme-word";
   const prefixCount = highlightCount || 0;
@@ -53,12 +81,28 @@ const buildWord = (phones, highlightCount, chunkClass) => {
   }
   container.appendChild(chunkWrapper);
 
-  const tail = document.createElement("div");
+  const tail = document.createElement("span");
   tail.className = "phoneme-tail";
-  tail.textContent = phones.slice(prefixCount).join(" ") || "—";
+
+  const originalTail = phones.slice(prefixCount).join(" ") || "—";
+  const swappedTail =
+    (swappedPhones || []).slice(swappedHighlightCount || 0).join(" ") ||
+    originalTail;
+
+  const originalLayer = document.createElement("span");
+  originalLayer.className = "tail-layer tail-original";
+  originalLayer.textContent = originalTail;
+
+  const swappedLayer = document.createElement("span");
+  swappedLayer.className = "tail-layer tail-swapped";
+  swappedLayer.textContent = swappedTail;
+
+  tail.appendChild(originalLayer);
+  tail.appendChild(swappedLayer);
+
   container.appendChild(tail);
 
-  return container;
+  return { element: container, chunkWrapper };
 };
 
 const createPhonemeRail = ({
@@ -68,52 +112,80 @@ const createPhonemeRail = ({
   highlightCounts,
   swappedHighlightCounts,
   chunkClasses,
-  swappedChunkClasses,
+  enableSwap,
 }) => {
   const wrapper = document.createElement("div");
   wrapper.className = "step phoneme-step animate-in";
+  if (enableSwap) {
+    wrapper.classList.add("can-swap");
+  }
 
-  const small = document.createElement("small");
-  small.textContent = label;
-  wrapper.appendChild(small);
+  const labelLink = document.createElement("a");
+  labelLink.className = "phoneme-link";
+  labelLink.href = "https://en.wikipedia.org/wiki/ARPABET";
+  labelLink.target = "_blank";
+  labelLink.rel = "noopener noreferrer";
+  labelLink.textContent = label;
+  wrapper.appendChild(labelLink);
 
-  const rails = document.createElement("div");
-  rails.className = "phoneme-rails";
+  const rail = document.createElement("div");
+  rail.className = "phoneme-rail";
 
-  const buildRail = (sets, type, counts, classes = chunkClasses) => {
-    const rail = document.createElement("div");
-    rail.className = `phoneme-rail ${type}`;
-
-    sets.forEach((phones, idx) => {
-      rail.appendChild(buildWord(phones, counts[idx], classes[idx]));
-      if (idx === 0) {
-        const divider = document.createElement("span");
-        divider.className = "divider";
-        divider.textContent = "|";
-        rail.appendChild(divider);
-      }
-    });
-
-    return rail;
-  };
-
-  rails.appendChild(
-    buildRail(phonemeSets, "rail-original", highlightCounts, chunkClasses)
-  );
-  rails.appendChild(
-    buildRail(
-      swappedSets,
-      "rail-swapped",
-      swappedHighlightCounts,
-      swappedChunkClasses || chunkClasses
+  const wordNodes = phonemeSets.map((phones, idx) =>
+    buildWord(
+      phones,
+      highlightCounts[idx],
+      chunkClasses[idx],
+      swappedSets[idx],
+      swappedHighlightCounts[idx]
     )
   );
 
-  wrapper.appendChild(rails);
+  wordNodes.forEach((node, idx) => {
+    rail.appendChild(node.element);
+    if (idx === 0) {
+      const divider = document.createElement("span");
+      divider.className = "divider";
+      divider.textContent = "|";
+      rail.appendChild(divider);
+    }
+  });
+
+  wrapper.appendChild(rail);
   steps.appendChild(wrapper);
+
+  if (enableSwap) {
+    prepareSwapAnimation(rail);
+  }
 };
 
+const swapRails = new Set();
+
+const measureSwapDistance = (rail) => {
+  const chunkWraps = rail.querySelectorAll(".chunk-wrap");
+  if (chunkWraps.length !== 2) {
+    return;
+  }
+  const [first, second] = chunkWraps;
+  const firstRect = first.getBoundingClientRect();
+  const secondRect = second.getBoundingClientRect();
+  const firstShift = secondRect.left - firstRect.left;
+  const secondShift = firstRect.left - secondRect.left;
+  first.style.setProperty("--swap-shift", `${firstShift}px`);
+  second.style.setProperty("--swap-shift", `${secondShift}px`);
+};
+
+const prepareSwapAnimation = (rail) => {
+  swapRails.add(rail);
+  requestAnimationFrame(() => measureSwapDistance(rail));
+};
+
+window.addEventListener("resize", () => {
+  swapRails.forEach((rail) => measureSwapDistance(rail));
+});
+
 const renderSteps = (data) => {
+  swapRails.clear();
   steps.innerHTML = "";
   const [first, second] = data.original_words;
   const prefixSets = data.prefixes || [[], []];
@@ -127,8 +199,6 @@ const renderSteps = (data) => {
     ? ["chunk-b", "chunk-a"]
     : ["chunk-a", "chunk-b"];
 
-  createSimpleStep("Words", `${first} + ${second}`);
-
   createPhonemeRail({
     label: "Phonemes",
     phonemeSets: data.phonemes,
@@ -136,14 +206,14 @@ const renderSteps = (data) => {
     highlightCounts: prefixLengths,
     swappedHighlightCounts: swappedCounts,
     chunkClasses: ["chunk-a", "chunk-b"],
-    swappedChunkClasses,
+    enableSwap: hasSwap,
   });
 
   createSimpleStep(
     "Spoonerism",
     data.sample_result.length > 0
-      ? data.sample_result.join(" + ")
-      : "No matches found yet.",
+      ? data.sample_result.join(" ")
+      : "That's not a word!",
     true
   );
 
@@ -222,6 +292,7 @@ const initSplash = () => {
       gl_Position = vec4(position, 0.0, 1.0);
     }
   `;
+  const rgb = (r, g, b) => [r / 255, g / 255, b / 255];
 
   const fragmentShaderSource = `
     precision mediump float;
@@ -270,9 +341,10 @@ const initSplash = () => {
       float combined = layer1 * 0.5 + layer2 * 0.3 + layer3 * 0.2;
       combined += (u_mouse.x - 0.5) * 0.15 + (u_mouse.y - 0.5) * 0.15;
 
-      vec3 baseA = vec3(0.08, 0.19, 0.38);
-      vec3 baseB = vec3(0.02, 0.08, 0.12);
-      vec3 accent = vec3(0.25, 0.65, 0.58);
+
+      vec3 baseA = vec3(${rgb(20, 60, 120).join(", ")});
+      vec3 baseB = vec3(${rgb(5, 15, 30).join(", ")});
+      vec3 accent = vec3(${rgb(64, 200, 180).join(", ")});
       vec3 color = mix(baseB, baseA, combined);
       color += accent * smoothstep(0.4, 0.8, combined);
 
