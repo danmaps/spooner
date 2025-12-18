@@ -23,10 +23,11 @@ def index():
 def api_spoon():
     data = request.get_json(silent=True) or {}
     phrase = (data.get("phrase") or "").strip()
+    debug = bool(data.get("debug"))
     if not phrase:
         return jsonify({"error": "Please provide two words to swap."}), 400
     try:
-        details = spoon_details(phrase)
+        details = spoon_details(phrase, debug=debug)
     except ValueError as exc:  # from spooner utilities
         return jsonify({"error": str(exc)}), 400
 

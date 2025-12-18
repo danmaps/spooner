@@ -4,6 +4,9 @@ const resultsSection = document.querySelector(".results");
 const errorBox = document.getElementById("error");
 const phraseInput = document.getElementById("phrase");
 const splashCanvas = document.getElementById("home-splash");
+const debugToggle = document.getElementById("debug-toggle");
+const debugPanel = document.getElementById("debug-panel");
+const debugList = document.getElementById("debug-list");
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
@@ -28,6 +31,15 @@ const setInitialPhrase = () => {
 };
 
 setInitialPhrase();
+
+const resetDebugPanel = () => {
+  if (debugPanel) {
+    debugPanel.hidden = true;
+  }
+  if (debugList) {
+    debugList.innerHTML = "";
+  }
+};
 
 const createSimpleStep = (label, content, highlight = false) => {
   const wrapper = document.createElement("div");
@@ -184,6 +196,30 @@ window.addEventListener("resize", () => {
   swapRails.forEach((rail) => measureSwapDistance(rail));
 });
 
+const formatScore = (value) => Number(value || 0).toFixed(2);
+
+const renderDebugPairs = (pairs, debugEnabled) => {
+  if (!debugPanel || !debugList) {
+    return;
+  }
+  debugList.innerHTML = "";
+  if (!debugEnabled || !pairs.length) {
+    debugPanel.hidden = true;
+    return;
+  }
+  debugPanel.hidden = false;
+  pairs.forEach((pair) => {
+    const row = document.createElement("div");
+    row.className = "debug-row";
+    const [firstWord, secondWord] = pair.words || [];
+    const [firstScore, secondScore] = pair.scores || [];
+    row.textContent = `[${firstWord} ${formatScore(
+      firstScore
+    )}, ${secondWord} ${formatScore(secondScore)}]`;
+    debugList.appendChild(row);
+  });
+};
+
 const renderSteps = (data) => {
   swapRails.clear();
   steps.innerHTML = "";
@@ -216,6 +252,7 @@ const renderSteps = (data) => {
       : "That's not a word!",
     true
   );
+  renderDebugPairs(data.ranked_pairs || [], Boolean(data.debug));
 
   if (resultsSection) {
     resultsSection.classList.remove("is-hidden");
@@ -229,8 +266,10 @@ const showError = (message) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
   const phrase = new FormData(form).get("phrase");
+  const debugMode = Boolean(debugToggle && debugToggle.checked);
   steps.innerHTML = "";
   showError("");
+  resetDebugPanel();
 
   try {
     const response = await fetch("/api/spoon", {
@@ -238,18 +277,20 @@ const handleSubmit = async (event) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phrase }),
+      body: JSON.stringify({ phrase, debug: debugMode }),
     });
 
     const payload = await response.json();
     if (!response.ok) {
       showError(payload.error || "Unable to build a spoonerism.");
+      resetDebugPanel();
       return;
     }
 
     renderSteps(payload);
   } catch (err) {
     showError("Something went wrong. Try again.");
+    resetDebugPanel();
   }
 };
 
@@ -257,6 +298,7 @@ const hideResults = () => {
   if (resultsSection) {
     resultsSection.classList.add("is-hidden");
   }
+  resetDebugPanel();
 };
 
 form.addEventListener("submit", (event) => {

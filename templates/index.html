@@ -27,11 +27,19 @@
         />
         <button type="submit">Spoon it</button>
       </form>
+      <label class="debug-toggle">
+        <input type="checkbox" id="debug-toggle" />
+        <span>Show debug ranking</span>
+      </label>
       <p class="status" id="error" role="status"></p>
 
       <section class="results is-hidden">
         <div class="panel">
           <div class="steps" id="steps"></div>
+          <div id="debug-panel" class="step debug-step" hidden>
+            <small>Debug ranking</small>
+            <div id="debug-list" class="debug-list"></div>
+          </div>
         </div>
       </section>
     </main>

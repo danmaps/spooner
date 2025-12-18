@@ -123,6 +123,23 @@ button:hover {
   color: var(--muted);
 }
 
+.debug-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.debug-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
 .results {
   width: min(720px, 100%);
   margin-top: 12px;
@@ -171,6 +188,28 @@ button:hover {
 .step .content {
   font-weight: 600;
   font-size: 16px;
+}
+
+.debug-step {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.debug-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Space Mono', 'Inter', monospace;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.debug-row {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.debug-row:last-child {
+  border-bottom: none;
 }
 
 .phoneme-step {

@@ -16,7 +16,7 @@ def test_phonemes(text, expected):
         (
             "crushing blow",
             {
-                "blow": ["cro", "crow", "crowe", "krogh", "kroh", "krowe"],
+                "blow": ["crow", "cro", "crowe", "krogh", "kroh", "krowe"],
                 "crushing": ["blushing"],
             },
         ),

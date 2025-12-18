@@ -1,6 +1,12 @@
 # import nltk
-import pronouncing
 import itertools
+
+import pronouncing
+
+try:  # pragma: no cover - supports direct script execution
+    from .frequency import rank_candidate_pairs, sort_candidates_by_frequency
+except ImportError:  # pragma: no cover
+    from frequency import rank_candidate_pairs, sort_candidates_by_frequency
 
 # try:
 #     nltk.data.find("corpora\\cmudict")
@@ -91,12 +97,16 @@ def spoon(text):
                         spoons1.append(rhyme)
                         # break  # stop after first match
     if spoons0 and spoons1:
-        return {text.split()[0]: spoons1, text.split()[1]: spoons0}
+        first_word, second_word = text.split()[:2]
+        return {
+            first_word: sort_candidates_by_frequency(spoons1),
+            second_word: sort_candidates_by_frequency(spoons0),
+        }
     else:
         return
 
 
-def spoon_details(text):
+def spoon_details(text, debug=False):
     """
     Provide structured details about how a spoonerism is built for two words.
 
@@ -127,11 +137,14 @@ def spoon_details(text):
     spoon_results = spoon(text)
 
     sample_result = []
+    ranked_pairs = []
     if spoon_results:
         first_result = spoon_results.get(first, [])
         second_result = spoon_results.get(second, [])
         if first_result and second_result:
-            sample_result = [first_result[0], second_result[0]]
+            ranked_pairs = rank_candidate_pairs(first_result, second_result)
+            if ranked_pairs:
+                sample_result = ranked_pairs[0]["words"]
 
     return {
         "original_words": [first, second],
@@ -140,6 +153,8 @@ def spoon_details(text):
         "spoonerisms": spoon_results or {},
         "sample_result": sample_result,
         "prefixes": [prefix0, prefix1],
+        "ranked_pairs": ranked_pairs if debug else [],
+        "debug": debug,
     }
 
 
